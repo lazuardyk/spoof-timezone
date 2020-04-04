@@ -91,6 +91,9 @@ var set = (timezone = 'Etc/GMT') => {
 // })));
 chrome.browserAction.onClicked.addListener(() => {
   notify('To disable timezone spoofing, please disable this extension and refresh the page!');
+  chrome.storage.local.set({
+    enabled: true
+  });
 });
 
 var server = async(silent = true) => {
@@ -119,9 +122,9 @@ chrome.runtime.onInstalled.addListener(() => {
 // update on startup?
 {
   const callback = () => {
-    if (localStorage.getItem('update') === 'true') {
+    // if (localStorage.getItem('update') === 'true') {
       server();
-    }
+    //}
   };
   chrome.runtime.onInstalled.addListener(callback);
   chrome.runtime.onStartup.addListener(callback);
